@@ -1,9 +1,12 @@
 import React from "react";
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Grid, Link } from "@mui/material";
 import logo from "../../images/logo.png";
 import "./navbar.css";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <Grid
       container
@@ -12,7 +15,9 @@ const Navbar = () => {
       alignItems="center"
       className="navbarGrid"
     >
-      <img width={"20%"} src={logo} alt="logo" />
+      <Link onClick={() => navigate("/")}>
+        <img width={"20%"} src={logo} alt="logo" />
+      </Link>
       <Box
         sx={{
           display: "flex",
