@@ -1,12 +1,8 @@
 import React from "react";
-import ride from "../images/ride.png";
+import Main from "../Components/main/Main";
 
 const Menu = () => {
-  return (
-    <div>
-      <img src={ride} alt="" />
-    </div>
-  );
+  return <Main />;
 };
 
 export default Menu;
