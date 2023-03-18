@@ -1,0 +1,101 @@
+.df-fdr {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+  margin: 0 10px;
+}
+
+.intro {
+  margin: 10px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.intro-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.intro-text {
+  padding: 20px 40px;
+}
+
+.intro-text-item-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.intro-text-item {
+  font-size: 20px;
+}
+
+.image-desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-name > img {
+  height: 50px;
+  width: 250px;
+}
+
+.image-desc > img {
+  width: 500px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.buttonSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  margin: 20px;
+  border-radius: 20%;
+}
+
+@media only screen and (max-width: 600px) {
+  * {
+    font-size: 20px;
+  }
+  .image-desc > img {
+    width: 400px;
+    height: 300px;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin: 20px;
+  }
+  .app-name > img {
+    height: 30px;
+    width: 180px;
+  }
+}

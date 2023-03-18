@@ -1,0 +1,9 @@
+.navbarGrid {
+  padding: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .navbarGrid {
+    height: 40px;
+  }
+}
