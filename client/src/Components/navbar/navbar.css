@@ -1,9 +1,25 @@
 .navbarGrid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbarGridWrapper {
   padding: 5px;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: center;
 }
 
 @media only screen and (max-width: 600px) {
   .navbarGrid {
+    /* height: 30px; */
+  }
+
+  .logo > img {
     height: 40px;
+    width: 120px;
   }
 }

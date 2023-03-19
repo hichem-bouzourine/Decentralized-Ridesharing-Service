@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "@mui/material";
 import ride from "../../images/ride.png";
 import logo from "../../images/logo.png";
@@ -6,6 +6,8 @@ import { FaCarSide } from "react-icons/fa";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import { BiTime } from "react-icons/bi";
 import "./main.css";
+import { EthereumContext } from "../../context/EthereumContext";
+import { useNavigate } from "react-router-dom";
 
 interface IntroItemProps {
   iconImg: any;
@@ -20,6 +22,10 @@ const IntroItem = ({ iconImg, text }: IntroItemProps) => (
 );
 
 const Main = () => {
+  const { connectWallet, connectedAccount } = useContext(EthereumContext);
+
+  const navigate = useNavigate();
+
   return (
     <div className="mainWrapper">
       <div className="intro">
@@ -48,6 +54,20 @@ const Main = () => {
       <div className="buttonWrapper">
         <div className="buttonSection">
           <div className="buttons">
+            {!connectedAccount && (
+              <Button
+                variant="contained"
+                size="large"
+                sx={{
+                  backgroundColor: "#083444",
+                  height: "68.5px",
+                  margin: "10px 0",
+                }}
+                onClick={connectWallet}
+              >
+                Connect Wallet
+              </Button>
+            )}
             <Button
               variant="contained"
               size="large"
@@ -56,19 +76,7 @@ const Main = () => {
                 height: "68.5px",
                 margin: "10px 0",
               }}
-              //   onClick={() => navigateHook("/consulterAM")}
-            >
-              Connect Wallet
-            </Button>
-            <Button
-              variant="contained"
-              size="large"
-              sx={{
-                backgroundColor: "#083444",
-                height: "68.5px",
-                margin: "10px 0",
-              }}
-              //   onClick={() => navigateHook("/consulterAM")}
+              onClick={() => navigate("/login")}
             >
               Lets' go
             </Button>
