@@ -12,7 +12,7 @@ const config: HardhatUserConfig = {
     },
   },
   etherscan: {
-    apiKey: { sepolia: `D6ZPAS49BFYJ349997QESNNH8QY43PSYZQ` },
+    apiKey: { sepolia: "D6ZPAS49BFYJ349997QESNNH8QY43PSYZQ" },
   },
 };
 
