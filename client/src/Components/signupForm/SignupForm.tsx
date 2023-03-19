@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Button,
   Avatar,
@@ -19,17 +19,24 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import signupIcon from "../../images/signupIcon.png";
 import "./signupForm.css";
 import { useNavigate } from "react-router-dom";
+import { EthereumContext } from "../../context/EthereumContext";
 
 const SignupForm = () => {
-  const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
-
-  const [matricule, setMatricule] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [role, setRole] = useState(null);
+  const [fullName, setFullName] = useState<string>();
+  const [phoneNumber, setPhoneNumber] = useState<string>();
 
   const navigate = useNavigate();
   const theme = createTheme();
+
+  const { signupUser, findUser, connectedAccount } =
+    useContext(EthereumContext);
+
+  const handleSignup = () => {
+    // signupUser(fullName, phoneNumber);
+    console.log(connectedAccount);
+
+    findUser(connectedAccount);
+  };
 
   const Copyright = (props: any) => {
     return (
@@ -76,52 +83,35 @@ const SignupForm = () => {
               margin="normal"
               required
               fullWidth
-              id="matricule"
-              label="Matricule"
-              name="matricule"
-              autoComplete="matricule"
+              id="fullName"
+              label="Full name"
+              name="fullName"
+              autoComplete="fullName"
               autoFocus
+              onChange={(e) => {
+                setFullName(e.target.value);
+              }}
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              name="phoneNumber"
+              label="Phone Number"
+              type="phoneNumber"
+              id="phoneNumber"
+              autoComplete="current-phoneNumber"
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+              }}
             />
-            {/* <FormControl fullWidth margin="normal">
-              <InputLabel id="demo-simple-select-label">Role</InputLabel>
-              <Select
-                required
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={user || ""}
-                label="Role"
-              >
-                <MenuItem value={"admin"}>Admin</MenuItem>
-                <MenuItem value={"maire"}>Maire</MenuItem>
-                <MenuItem value={"officier"}>Officier</MenuItem>
-                <MenuItem value={"consulaire"}>Consulaire</MenuItem>
-              </Select>
-            </FormControl> */}
-            {error && (
-              <Alert
-                variant="outlined"
-                severity="warning"
-                style={{ height: "80px" }}
-              >
-                {<p>matricule ou mot de passe ou role est incorrecte.</p>}
-              </Alert>
-            )}
             <Button
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               style={{ backgroundColor: "#083444", color: "white" }}
-              disabled={!(matricule && password && role)}
+              // disabled={!(fullName && phoneNumber)}
+              onClick={handleSignup}
             >
               Signup
             </Button>
@@ -129,7 +119,7 @@ const SignupForm = () => {
               have account?
             </Typography>
             <Link color="inherit" onClick={() => navigate("/login")}>
-              Signup
+              Login
             </Link>
           </Box>
         </Box>
