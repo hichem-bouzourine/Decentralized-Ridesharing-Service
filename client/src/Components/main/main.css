@@ -51,8 +51,8 @@
 }
 
 .image-desc > img {
-  width: 500px;
-  height: 400px;
+  /* width: 500px;
+  height: 400px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,8 +84,8 @@
     font-size: 20px;
   }
   .image-desc > img {
-    width: 400px;
-    height: 300px;
+    /* width: 400px;
+    height: 300px; */
   }
   .buttons {
     display: flex;

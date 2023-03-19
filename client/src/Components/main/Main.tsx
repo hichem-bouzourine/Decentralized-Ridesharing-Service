@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Button } from "@mui/material";
-import ride from "../../images/ride.png";
+import connectWalletPicture from "../../images/connectWallet.png";
 import logo from "../../images/logo.png";
 import { FaCarSide } from "react-icons/fa";
 import { BiMoneyWithdraw } from "react-icons/bi";
@@ -26,12 +26,16 @@ const Main = () => {
 
   const navigate = useNavigate();
 
+  const handleNavigate = () => {
+    if (!connectedAccount) navigate("/signup");
+    else navigate("/");
+  };
   return (
     <div className="mainWrapper">
       <div className="intro">
         <div className="intro-items">
           <div className="image-desc">
-            <img src={ride} alt="ride picture" />
+            <img src={connectWalletPicture} alt="connect Wallet picture" />
             <div className="intro-text-item app-name">
               <img src={logo} alt="ride picture" />
             </div>
@@ -76,7 +80,7 @@ const Main = () => {
                 height: "68.5px",
                 margin: "10px 0",
               }}
-              onClick={() => navigate("/login")}
+              onClick={handleNavigate}
             >
               Lets' go
             </Button>
