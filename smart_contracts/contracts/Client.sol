@@ -27,7 +27,7 @@ contract Client {
     }
 
     function loginUser() public {
-        User storage user = findUser(msg.sender);
+        User memory user = findUser(msg.sender);
         require(user.sender == msg.sender, "User not registered.");
         require(!user.loggedIn, "User already logged in.");
         user.loggedIn = true;
@@ -35,7 +35,7 @@ contract Client {
     }
 
     function logoutUser() public {
-        User storage user = findUser(msg.sender);
+        User memory user = findUser(msg.sender);
         require(user.sender == msg.sender, "User not registered.");
         require(user.loggedIn, "User not logged in.");
         user.loggedIn = false;
@@ -51,7 +51,7 @@ contract Client {
         return false;
     }
 
-    function findUser(address _userAddress) private view returns(User storage) {
+    function findUser(address _userAddress) public view returns(User memory) {
         for (uint i = 0; i < users.length; i++) {
             if (users[i].sender == _userAddress) {
                 return users[i];
