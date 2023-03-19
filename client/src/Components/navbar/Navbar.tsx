@@ -3,15 +3,10 @@ import { Box, Button, Container, Grid, Link } from "@mui/material";
 import logo from "../../images/logo.png";
 import "./navbar.css";
 import { useNavigate } from "react-router-dom";
-import { EthereumContext } from "../../context/EthereumContext";
 
 const Navbar = () => {
-  const { connectedAccount, setConnectedAccount } = useContext(EthereumContext);
   const navigate = useNavigate();
 
-  const logout = () => {
-    setConnectedAccount("");
-  };
   return (
     <Grid className="navbarGridWrapper">
       <Grid
@@ -29,21 +24,7 @@ const Navbar = () => {
             display: "flex",
             paddingRight: "20px",
           }}
-        >
-          {connectedAccount && (
-            <Button
-              fullWidth
-              variant="contained"
-              style={{
-                backgroundColor: "#083444",
-                color: "white",
-              }}
-              onClick={logout}
-            >
-              Logout
-            </Button>
-          )}
-        </Box>
+        ></Box>
       </Grid>
     </Grid>
   );
