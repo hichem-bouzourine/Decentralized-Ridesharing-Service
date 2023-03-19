@@ -10,7 +10,9 @@ const main = async () => {
   await driver.deployed();
 
   const Rides = await ethers.getContractFactory("Ride");
-  const ride = await Rides.deploy();
+  const ride = await Rides.deploy(
+    "0xE07c2f3A0aadCc637a9C90C166EB3E2cae37d30e" as any
+  );
   await ride.deployed();
 
   console.log(

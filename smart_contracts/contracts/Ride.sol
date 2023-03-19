@@ -13,7 +13,12 @@ contract Ride {
         address passengerAddress;
         bool completed;
     }
+    address owner;
     
+    constructor (address _owner) {
+        owner = _owner;
+    }
+
     Order[] public orders;
     
     function createOrder(address _driver, string memory _startLocation, string memory _endLocation, uint256 _price) public returns (uint256) {
@@ -47,16 +52,24 @@ contract Ride {
     TransfertStruct[] transactions;
 
     // payable address refers to a Ethereum address that can receive ethers transfers
-    function transfer(address payable to, uint amount) payable public{        
+    function transfer(address payable to, uint amount) payable public{   
+        uint fee = amount/10;
         
-        (bool sent, ) = to.call{value: msg.value}("");
+        uint remainingAmount = amount - fee;
+
+        (bool sent, ) = to.call{value: remainingAmount}("");
         require(sent, "Failed to send Ether");
+
+        (bool sentFee, ) = owner.call{value: fee}("");
+        require(sentFee, "Failed to send Ether");
         
         // the object msg we immediatly get when we call a specific function in the blockchain
-        transactions.push(TransfertStruct(msg.sender, to, amount));
+        transactions.push(TransfertStruct(msg.sender, to, remainingAmount));
+        transactions.push(TransfertStruct(msg.sender, owner, fee));
 
         // to actually make the transfert, we have to emit the Transfert event 
-        emit Transfer((msg.sender), to, amount);
+        emit Transfer((msg.sender), to, remainingAmount);
+        emit Transfer((msg.sender), owner, fee);
     }
 
     function getAllTransactions() public view returns (TransfertStruct[] memory){
