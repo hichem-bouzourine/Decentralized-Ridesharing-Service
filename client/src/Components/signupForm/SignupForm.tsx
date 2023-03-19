@@ -32,10 +32,8 @@ const SignupForm = () => {
     useContext(EthereumContext);
 
   const handleSignup = () => {
-    // signupUser(fullName, phoneNumber);
-    console.log(connectedAccount);
-
-    findUser(connectedAccount);
+    signupUser(fullName, phoneNumber);
+    navigate("/");
   };
 
   const Copyright = (props: any) => {
@@ -110,7 +108,7 @@ const SignupForm = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               style={{ backgroundColor: "#083444", color: "white" }}
-              // disabled={!(fullName && phoneNumber)}
+              disabled={!(fullName && phoneNumber)}
               onClick={handleSignup}
             >
               Signup

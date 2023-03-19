@@ -22,13 +22,13 @@ const IntroItem = ({ iconImg, text }: IntroItemProps) => (
 );
 
 const Main = () => {
-  const { connectWallet, connectedAccount } = useContext(EthereumContext);
+  const { connectWallet, connectedAccount, findUser, isRegistered } =
+    useContext(EthereumContext);
 
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    if (!connectedAccount) navigate("/signup");
-    else navigate("/");
+    navigate("/signup");
   };
   return (
     <div className="mainWrapper">

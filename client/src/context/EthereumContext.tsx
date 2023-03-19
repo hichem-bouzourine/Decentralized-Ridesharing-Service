@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 import { ClientAbi, ClientContractAddress } from "../utils/constants";
 import { DriverAbi, DriverContractAddress } from "../utils/constants";
 import { RideAbi, RideContractAddress } from "../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 interface EthereumContextProps {
   value?: string;
@@ -12,6 +13,7 @@ interface EthereumContextProps {
   setConnectedAccount?: any;
   signupUser?: any;
   findUser?: any;
+  isRegistered?: any;
 }
 
 export const EthereumContext = createContext<EthereumContextProps>({});
@@ -41,16 +43,19 @@ export const EthereumProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
   const [connectedAccount, setConnectedAccount] = useState("");
+  const navigate = useNavigate();
 
   const connectWallet = async () => {
     try {
       if (!ethereum) return alert("Please install Metamask");
 
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
-      const account = await signer.getAddress();
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
 
-      setConnectedAccount(account);
+      if (accounts.length) {
+        setConnectedAccount(accounts[0]);
+      }
     } catch (error) {
       console.log(error);
 
@@ -62,12 +67,10 @@ export const EthereumProvider: React.FC<React.PropsWithChildren> = ({
     try {
       if (!ethereum) return alert("Please install metamask");
 
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
-      const account = await signer.getAddress();
+      const accounts = await ethereum.request({ method: "eth_accounts" });
 
-      if (account) {
-        setConnectedAccount(account);
+      if (accounts.length) {
+        setConnectedAccount(accounts[0]);
       } else {
         console.log("No account found");
       }
@@ -88,13 +91,25 @@ export const EthereumProvider: React.FC<React.PropsWithChildren> = ({
     }
   };
 
+  const isRegistered = async (address: string) => {
+    try {
+      if (!ethereum) return alert("PLEASE install metamask");
+
+      const ClientContract = getContract(ClientContractAddress, ClientAbi);
+      const isRegistered = await ClientContract?.isRegistered(address);
+      return isRegistered;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const findUser = async (address: string) => {
     try {
       if (!ethereum) return alert("PLEASE install metamask");
 
       const ClientContract = getContract(ClientContractAddress, ClientAbi);
       const user = await ClientContract?.findUser(address);
-      console.log(user);
+      return user;
     } catch (error) {
       console.log(error);
     }
@@ -114,6 +129,7 @@ export const EthereumProvider: React.FC<React.PropsWithChildren> = ({
         setConnectedAccount,
         signupUser,
         findUser,
+        isRegistered,
       }}
     >
       {children}
